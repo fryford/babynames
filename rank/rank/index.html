@@ -470,7 +470,7 @@ td span{
 
 		    // clear out existing graphics
 		    graphic.selectAll("*").remove();
-			keypoints.selectAll("*").remove();
+			  keypoints.selectAll("*").remove();
 			//footer.selectAll("*").remove();
 
 			boyroller1    = document.getElementById("boy_roller1");
@@ -637,6 +637,8 @@ td span{
 			// myId=null;
 
 			$('#areaselect').select2({placeholder:"e.g. Fareham",allowClear:false,dropdownParent:$('#sel')}).on('change',function(){
+
+        $('#areaselect').focus();
 
 					if($('#areaselect').val() !="") {
 
