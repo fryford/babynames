@@ -11,7 +11,8 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
     <link rel="stylesheet" href="../lib/globalStyle.css" />
-  	<link href="../lib/select2.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="../lib/style-chosen.css"/>
+  	<!-- <link href="../lib/select2.min.css" rel="stylesheet" /> -->
      <link rel="stylesheet" href="../lib/odometer-theme-minimal.css" />
      <link rel="stylesheet" href="../lib/ONSstyle.css" />
 
@@ -48,95 +49,7 @@
 	}
 
 
-	/*  SELECT DROPBOX */
-  .select2-dropdown {
-    border: 1px solid #FF9933;
-  }
 
-  .select2-search__field{
-    border: 1px solid #FF9933!important;
-  }
-
-  .select2-container--default .select2-selection--single {
-      background-color: #EDEDED!important;
-      border: 1px #FF9933 !important;
-  }
-
-  .select2-container .select2-selection--single {
-      height: 36px!important;
-  }
-
-  .select2-container--default .select2-selection--single .select2-selection__placeholder {
-      color: #206095!important;
-  }
-
-  .select2-container--default .select2-selection--single .select2-selection__rendered {
-      line-height: 36px!important;
-  }
-
-  .select2-dropdown.select2-dropdown--below{
-        /* width: 148px !important; */
-  }
-
-  .select2-container--default .select2-selection--single{
-      /* padding:6px; */
-      /* height: 37px; */
-      /* width: 148px; */
-      /* font-size: 1.2em; */
-      position: relative;
-  }
-
-  .select2-container--default .select2-selection--single .select2-selection__arrow {
-      background-image: -khtml-gradient(linear, left top, left bottom, from(#3b7a9e), to(#3b7a9e));
-      background-image: -moz-linear-gradient(top, #3b7a9e, #3b7a9e);
-      background-image: -ms-linear-gradient(top, #3b7a9e, #3b7a9e);
-      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b7a9e), color-stop(100%, #3b7a9e));
-      background-image: -webkit-linear-gradient(top, #3b7a9e, #3b7a9e);
-      background-image: -o-linear-gradient(top, #3b7a9e, #3b7a9e);
-      background-image: linear-gradient(#3b7a9e, #3b7a9e);
-      /* width: 40px; */
-      /* color: #fff; */
-      /* font-size: 1.3em; */
-      padding: 0px 6px;
-      /* height: 27px; */
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      /* width: 20px; */
-  }
-
-  /*.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 25px !important;
-  }*/
-
-  .select2-selection__arrow b {
-    border-color: white transparent transparent transparent !important;
-    border-width: 7px 6px 0px 6px !important;
-    left: 48% !important;
-    top: 45% !important;
-  }
-
-  .select2-selection__clear {
-    padding-right: 15px !important;
-    color: #3b7a9e !important;
-    font-size: 25px !important;
-    line-height: 24px !important;
-
-  }
-
-
-  .select2-container--default .select2-selection--single .select2-selection__arrow {
-      height: 36px!important;
-      width: 30px!important;
-  }
-
-  .select2-selection__clear {
-      padding-right: 25px !important;
-      color: #3b7a9e !important;
-      font-size: 36px !important;
-      line-height: 35px !important;
-  }
-  /*  SELECT DROPBOX END */
 
 
 #sel{padding-left:0px!important;}
@@ -433,8 +346,8 @@ td span{
     <script src="../lib/queue.js" charset="utf-8"></script>
     <script src="../lib/ss.js"></script>
 
-<script src="https://cdn.ons.gov.uk/vendor/jquery/2.1.4/jquery.min.js"></script>
-<script src="../lib/select2.min.js"></script>
+    <script src="https://cdn.ons.gov.uk/vendor/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../lib/chosen.jquery.js" type="text/javascript"></script>
     <script src="../lib/TextRoll.js" type="text/javascript"></script>
 
     <script>
@@ -470,7 +383,7 @@ td span{
 
 		    // clear out existing graphics
 		    graphic.selectAll("*").remove();
-			keypoints.selectAll("*").remove();
+			  keypoints.selectAll("*").remove();
 			//footer.selectAll("*").remove();
 
 			boyroller1    = document.getElementById("boy_roller1");
@@ -623,7 +536,7 @@ td span{
 						return "width:300px"
 					}
 				})
-				// .attr("class","chosen-select");
+				.attr("class","chosen-select");
 
 
 			optns.append("option")
@@ -636,9 +549,10 @@ td span{
 
 			// myId=null;
 
-			$('#areaselect').select2({placeholder:"e.g. Fareham",allowClear:false,dropdownParent:$('#sel')}).on('change',function(){
+      $('#areaselect').chosen({width: "300px", max_selected_options: 6}).on('change',function(evt,params){
+		//	$('#areaselect').select2({placeholder:"e.g. Fareham",allowClear:false,dropdownParent:$('#sel')}).on('change',function(){
 
-					if($('#areaselect').val() !="") {
+					if(typeof params != 'undefined') {
 
 							data1.filter(function(d){
 								if(d.AREACD == $('#areaselect').val()){
@@ -798,24 +712,17 @@ td span{
 					}
 			});
 
-      $('select').on(
-          'select2:close',
-          function () {
-              $(this).focus();
-          }
-      );
-
-			//some code to stop select2 opening when clearing
-			$('#areaselect').on('select2:unselecting', function(ev) {
-
-				if (ev.params.args.originalEvent) {
-					// When unselecting (in multiple mode)
-					ev.params.args.originalEvent.stopPropagation();
-				} else {
-					// When clearing (in single mode)
-					$(this).one('select2:opening', function(ev) { ev.preventDefault(); });
-				}
-			});
+			// //some code to stop select2 opening when clearing
+			// $('#areaselect').on('select2:unselecting', function(ev) {
+      //
+			// 	if (ev.params.args.originalEvent) {
+			// 		// When unselecting (in multiple mode)
+			// 		ev.params.args.originalEvent.stopPropagation();
+			// 	} else {
+			// 		// When clearing (in single mode)
+			// 		$(this).one('select2:opening', function(ev) { ev.preventDefault(); });
+			// 	}
+			// });
 
 
 		 drawGraphic();
@@ -830,7 +737,7 @@ td span{
 			 //use pym to create iframe containing fallback image (which is set as default)
 			 pymChild = new pym.Child();
 
-			$("#selectIntro").text("To use this interactive you need to upgrade your browser")
+			$("#selectIntro").text("A modern browser with JavaScript and a stable internet connectin is required to view this interactive")
 			$("#selectBlurb").text("")
 
 			if (pymChild) {
