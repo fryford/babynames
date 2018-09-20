@@ -607,7 +607,7 @@ td span{
 					}
 			});
 
-$('#areaselect').on("chosen:showing_dropdown", function(){if (pymChild) {
+$('#areaselect').on("chosen:showing_dropdown", function(){console.log("hello") if (pymChild) {
   pymChild.sendHeight();
 }
 });
