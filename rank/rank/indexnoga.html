@@ -607,10 +607,22 @@ td span{
 					}
 			});
 
-$('#areaselect').on("chosen:showing_dropdown", function(){console.log("hello"); if (pymChild) {
-  pymChild.sendHeight();
-}
-});
+      $('#areaselect').on("chosen:showing_dropdown", function(){
+
+          d3.select("body").style("min-height","500px")
+          if (pymChild) {
+            pymChild.sendHeight();
+          };
+      });
+
+      $('#areaselect').on("chosen:hiding_dropdown", function(){
+
+        d3.select("body").style("min-height","0px")
+        if (pymChild) {
+          pymChild.sendHeight();
+        };
+      });
+
 
 
 		 drawGraphic();
