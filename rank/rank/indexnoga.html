@@ -607,6 +607,10 @@ td span{
 					}
 			});
 
+$('#areaselect').on("chosen:showing_dropdown", function(){if (pymChild) {
+  pymChild.sendHeight();
+}
+});
 
 
 		 drawGraphic();
